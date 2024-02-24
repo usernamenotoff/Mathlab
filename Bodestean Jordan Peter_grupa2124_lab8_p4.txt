@@ -1,0 +1,67 @@
+/*4. Se dă un fișier binar ce conține o secvență de caractere ce reprezintă o cheie privată pentru Bitcoin (256 caractere).
+De la tastatură se citește o secvență de caractere ce reprezintă cheia publică a unui Bitcoin. Să se genereze
+identificatorul de tranzacție corespunzător acestor informații folosind operația de sau exclusiv (XOR) pe biți aplicată
+între cheile publică și privată. Scrieți informația rezultată într-un fișier binar.*/
+
+
+
+package laborator;
+
+
+
+import java .io.* ;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
+import java.io.ByteArrayInputStream;
+import java.util.Random;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.*;
+import java.text.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class jordan {
+
+    public static void main(String[] args) throws IOException{
+    	try {
+    	
+    	
+    	DataInputStream dis = new DataInputStream(System.in);
+    	
+    	System.out.println("introduceti cheia publica de la tastatura");
+    	 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+         String codpublic = br.readLine();
+ 
+    	byte[]codul_public=codpublic.getBytes();
+    	System.out.println("cheia publica este:"+codul_public);
+    	
+    	FileInputStream fisier=new FileInputStream("cheie_privata.txt");
+    	byte[]cheieprivata= fisier.readAllBytes();
+    	fisier.close();
+    	byte[] rezultatXOR = new byte[codul_public.length];  	
+    	if(codul_public.length<=256) {
+    		for(int i=0;i<rezultatXOR.length;i++) {
+    			rezultatXOR[i]=(byte)(cheieprivata[i]^codul_public[i%codul_public.length]);
+    			
+    			
+    		}
+    	
+    	
+    	FileOutputStream fis2=new FileOutputStream("inentificator de tranzactie");
+    	fis2.write(rezultatXOR);
+    	fis2.close();
+    	}else System.out.println("cheia publica este gresita");
+    }catch(IOException e) {
+    	System.out.println("ceva este gresit"+e);
+    }
+
+    }
+}

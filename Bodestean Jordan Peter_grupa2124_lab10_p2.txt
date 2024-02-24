@@ -1,0 +1,48 @@
+/*2. Scrieți o aplicație de tip Frame care va desena într-un Canvas un cerc de culoare roșie tangent la dimensiunea cea mai
+mică (înălțime, lățime) a componentei Canvas.*/
+
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.*;  
+
+public class MenuExample {
+	MenuExample()  {
+		Frame f=new Frame("Canvas");
+		
+		f.add(new MyCanvas());    
+		
+		f.setLayout(null);    
+	    f.setSize(400, 400);    
+	    f.setVisible(true);    
+	      
+	}
+    
+	public static void main(String args[])    
+	  {    
+	    new MenuExample();    
+	  }    
+	}    
+	
+	package laborator;
+import java.awt.*;
+import java.awt.Component;
+
+public class MyCanvas extends Canvas {
+	
+	public MyCanvas() {    
+       
+        setSize(300, 200);    
+	}
+        public void paint(Graphics g)    
+        { g.setColor(Color.red);    
+        g.fillOval(75, 75, 150, 75);        
+}
+	}
+
+
+    

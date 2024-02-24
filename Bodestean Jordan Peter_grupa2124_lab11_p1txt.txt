@@ -1,0 +1,95 @@
+/*1. Implementați o aplicație Java care folosește GridLayout pentru aranjarea în pagină a componentelor unei aplicații de
+calcul (TextField pt. intrare/ieșire, butoane pentru numere, operații matematice, ștergerea ecranului, etc.).*/
+
+package laborator;
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class Gridlayout  {
+	private static JTextField textField;
+public static void main(String[] args) {
+	
+	JFrame frame=new JFrame("Gridlayout");
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	JPanel p=new JPanel(new GridLayout(2,1));
+	 textField = new JTextField();
+     p.add(textField);
+	JPanel p1=new JPanel(new GridLayout(1,4));
+	JPanel p2=new JPanel(new GridLayout(1,5));
+	JButton b0=new JButton("0");
+	JButton b1=new JButton("1");
+	p1.add(b1);
+	JButton b2=new JButton("2");
+	p1.add(b2);
+	JButton b3=new JButton("3");
+	p1.add(b3);
+	JButton b4=new JButton("4");
+	p1.add(b4);
+	JButton b10=new JButton("+");
+	p1.add(b10);
+	JButton b11=new JButton("-");
+	p1.add(b11);
+	JButton b5=new JButton("5");
+	p2.add(b5);
+	JButton b6=new JButton("6");
+	p2.add(b6);
+	JButton b7=new JButton("7");
+	p2.add(b7);
+	JButton b8=new JButton("8");
+	p2.add(b8);
+	JButton b9=new JButton("9");
+	JButton b12=new JButton("*");
+	p2.add(b12);
+	JButton b13=new JButton("/");
+	p2.add(b13);
+	p2.add(b9);
+	p.add(p1);
+    p.add(p2);
+    
+    frame.add(p);
+    frame.pack();
+    frame.setVisible(true);
+    b1.addActionListener(new ButtonClickListener("1"));
+    b2.addActionListener(new ButtonClickListener("2"));
+    b3.addActionListener(new ButtonClickListener("3"));
+    b4.addActionListener(new ButtonClickListener("4"));
+    b5.addActionListener(new ButtonClickListener("5"));
+    b6.addActionListener(new ButtonClickListener("6"));
+    b7.addActionListener(new ButtonClickListener("7"));
+    b8.addActionListener(new ButtonClickListener("8"));
+    b9.addActionListener(new ButtonClickListener("9"));
+    b10.addActionListener(new ButtonClickListener("+"));
+    b11.addActionListener(new ButtonClickListener("-"));
+    b12.addActionListener(new ButtonClickListener("*"));
+    b13.addActionListener(new ButtonClickListener("/"));
+}
+    
+    
+    static class ButtonClickListener implements ActionListener {
+        private String buttonText;
+
+        public ButtonClickListener(String buttonText) {
+            this.buttonText = buttonText;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            textField.setText(textField.getText() + buttonText);
+    
+        }
+    }
+}

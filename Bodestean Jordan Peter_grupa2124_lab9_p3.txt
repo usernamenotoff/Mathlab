@@ -1,0 +1,63 @@
+/* 3.Scrieti o clasa pentru determinarea unui element din sirul lui Fibonacci. In clasa vor fi 2 metode, una care calculeaza
+valoarea elementului si alta care afiseaza acea valoare. Folositi mecanismul de multithreading cu sincronizare, astfel
+incat in timp ce un fir de executie realizeaza calculul, celalalt sa afiseze valorile intermediare (toate componentele sirului
+pana la elementul calculat)*/
+
+
+
+
+
+public class Fibonacci {
+    private int n;
+    private int value;
+    private boolean calculated;
+
+    public Fibonacci(int n) {
+        this.n = n;
+        this.calculated = false;
+    }
+
+    public synchronized void calculate() {
+        int a = 0, b = 1, c;
+        for (int i = 2; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+            System.out.println("Intermediate value: " + c);
+        }
+        value = b;
+        calculated = true;
+        notify();
+    }
+
+    public synchronized int getValue() {
+        while (!calculated) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return value;
+    }
+}
+
+
+
+public class jordan {
+    public static void main(String[] args) {
+        Fibonacci fib = new Fibonacci(10);
+
+        Thread t1 = new Thread(() -> {
+            fib.calculate();
+        });
+
+        Thread t2 = new Thread(() -> {
+            int result = fib.getValue();
+            System.out.println("Result: " + result);
+        });
+
+        t1.start();
+        t2.start();
+    }
+}

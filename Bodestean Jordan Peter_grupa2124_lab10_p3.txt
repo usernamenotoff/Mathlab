@@ -1,0 +1,40 @@
+/* 3. Scrieți o aplicație de tip Frame ce afișează o imagine stocată local sub care este afișat și numele fișierului din care
+provine, cu un font stabilit în prealabil și o culoare creată printr-o combinație de trei valori întregi (reprezentând
+cantitățile de roșu, verde și albastru).*/
+
+
+package laborator;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.*;  
+import javax.swing.*;
+import java.awt.*;
+
+
+
+	public class MenuExample extends JFrame {
+	    public static void main(String[] args) {
+	        JFrame frame = new JFrame(); //JFrame Creation       
+	        frame.setTitle("Add Image");
+	        frame.setBackground(new Color(100,150,200));
+	        frame.setLayout(null); 
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+	        frame.setSize(500, 500); 
+	        
+	        Container c = frame.getContentPane(); 
+	        JLabel label = new JLabel(); 
+	        frame.add(new JLabel(new ImageIcon("C:\\Users\\bode_\\eclipse-workspace\\laborator\\src\\laborator\\unnamed.jpg"))); 
+	        Dimension size = label.getPreferredSize(); //Gets the size of the image
+	        label.setBounds(200, 200, 200, 200); //Sets the location of the image
+	 
+	    c.add(label);//Adds objects to the container
+	        frame.setVisible(true); // Exhibit the frame
+	    }
+	    }

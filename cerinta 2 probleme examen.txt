@@ -1,0 +1,202 @@
+2. Aplicatia de mai sus sa contina si o clasa Student cu campuri corespunzatoare
+datelor introduse in interfata grafica. La apasarea butonului Copiaza se
+creeaza un obiect de tip Student cu datele citite din interfata. Cand se apasa
+butonul Salveaza se scriu in fisier datele din obiectele Student, ordonate
+crescator dupa medie si dupa nume. Daca facultatea nu este “etti”, “ac” sau
+“ie” sa se semnaleze o exceptie proprie, cu un mesaj corespunzator afisat in
+label si acel obiect nu se salveaza in fisier.
+
+
+
+
+
+
+
+package laborator;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class Textfield extends JFrame {
+    JTextField tfStudent, tfMedia;
+    FileWriter fileWriter;
+    JTextArea ta;
+    JPanel p1, p2;
+    List<Student> lista;
+    JButton bCopy, bSave;
+
+    public Textfield(String titlu) {
+        super(titlu);
+        setSize(600, 600);
+        setLocation(100, 100);
+        setLayout(new FlowLayout());
+        init();
+    }
+
+    public void init() {
+        lista = new ArrayList<Student>();
+        tfStudent = new JTextField(20);
+        tfMedia = new JTextField(10);
+        ta = new JTextArea(10, 10);
+        bCopy = new JButton("Copy");
+        bSave = new JButton("Save");
+
+        p1 = new JPanel();
+        p1.setPreferredSize(new Dimension(300, 300));
+        p1.setBorder(BorderFactory.createEtchedBorder());
+        p1.add(new JLabel("Nume, Prenume și Facultate (*):"));
+        p1.add(tfStudent);
+        p1.add(new JLabel("Media:"));
+        p1.add(tfMedia);
+        p1.add(ta);
+        add(p1);
+
+        bCopy.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                String[] parts = tfStudent.getText().split("\\*");
+                if (parts.length == 3) {
+                    String nume = parts[0].trim();
+                    String prenume = parts[1].trim();
+                    String facultate = parts[2].trim();
+                    Student s = new Student(nume, prenume, facultate, Integer.parseInt(tfMedia.getText()));
+                    lista.add(s);
+                    ta.append(nume + " " + prenume + " " + facultate + " " + tfMedia.getText() + "\n");
+
+                    if (facultate.equalsIgnoreCase("etti")) {
+                        bSave.setBackground(Color.GREEN);
+                    }
+                }
+            }
+        });
+
+        bSave.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                Color buttonColor = bSave.getBackground();
+                if (buttonColor == Color.GREEN) {
+                    try {
+                        int maxMedia = 0;
+                        for (Student student : lista) {
+                            if (student.getFacultate().equalsIgnoreCase("etti")) {
+                                maxMedia = Math.max(maxMedia, student.getMedia());
+                            }
+                        }
+
+                        fileWriter = new FileWriter("studenti_etti.txt");
+                        PrintWriter printWriter = new PrintWriter(fileWriter);
+                        int numarStudentiEtti = 0;
+                        for (Student student : lista) {
+                            if (student.getFacultate().equalsIgnoreCase("etti")) {
+                                numarStudentiEtti++;
+                                printWriter.println(student.toString());
+                            }
+                        }
+                        printWriter.close();
+                        fileWriter.close();
+
+                        JLabel maxMediaLabel = new JLabel("Media cea mai mare: " + maxMedia);
+                        p1.add(maxMediaLabel);
+                        p1.revalidate();
+                        p1.repaint();
+
+                        JLabel numarStudentiLabel = new JLabel("Numar studenti ETti salvati: " + numarStudentiEtti);
+                        p1.add(numarStudentiLabel);
+                        p1.revalidate();
+                        p1.repaint();
+
+                       
+                        Collections.sort(lista, new Comparator<Student>() {
+                            public int compare(Student s1, Student s2) {
+                                if (s1.getMedia() != s2.getMedia()) {
+                                    return s1.getMedia() - s2.getMedia();
+                                } else {
+                                    return s1.getNume().compareTo(s2.getNume());
+                                }
+                            }
+                        });
+
+                        
+                        System.out.println("Studenti sortati:");
+                        for (Student student : lista) {
+                            System.out.println(student.toString());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        p2 = new JPanel();
+        p2.setPreferredSize(new Dimension(200, 100));
+        p2.setBorder(BorderFactory.createLineBorder(Color.RED));
+        p2.add(bCopy);
+        p2.add(bSave);
+        add(p2);
+    }
+
+}
+
+package laborator;
+
+class Student {
+    private String nume;
+    private String prenume;
+    private String facultate;
+    private int media;
+
+    public Student(String nume, String prenume, String facultate, int media) {
+        this.nume = nume;
+        this.prenume = prenume;
+        this.facultate = facultate;
+        this.media = media;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public String getPrenume() {
+        return prenume;
+    }
+
+    public String getFacultate() {
+        return facultate;
+    }
+
+    public int getMedia() {
+        return media;
+    }
+
+    @Override
+    public String toString() {
+        return nume + " " + prenume + " " + facultate + " " + media;
+    }
+}
+
+package laborator;
+
+import javax.swing.JFrame;
+
+public class Examen {
+	public static void main(String[] args) {
+        Textfield frame = new Textfield("Exemplu GUI");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}

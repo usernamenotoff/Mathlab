@@ -1,0 +1,43 @@
+/*2. Implementați aplicația anterioară folosind un fișier de intrare care conține un anumit număr de inregistrări cu
+formatul specificat mai sus*/
+
+
+package laborator;
+
+
+
+import java .io.* ;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
+import java.io.ByteArrayInputStream;
+import java.util.Random;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+public class jordan{
+public static void main (String[] args)throws
+FileNotFoundException, IOException {
+
+	try {
+        BufferedReader br = new BufferedReader(new FileReader("2.txt"));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] tokens = line.split(",");
+            String mesaj = tokens[0];
+            int ziua = Integer.parseInt(tokens[1]);
+            String luna = tokens[2];
+            int an = Integer.parseInt(tokens[3]);
+            System.out.println(mesaj);
+            System.out.println(ziua);
+            System.out.println(luna);
+            System.out.println(an);
+        }
+        br.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+}

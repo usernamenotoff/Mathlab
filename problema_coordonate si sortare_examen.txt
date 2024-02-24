@@ -1,0 +1,161 @@
+Scrieti o aplicatie Java in care sa aveti:
+- O clasa exceptie proprie CoordonateInvalide, avand doar un constructor
+- O clasa PunctGeografic, cu atributele latitudine si longitudine (tipul double), getteri
+si setteri pentru aceste atribute. Faceti validari in setteri, astfel incat sa permita valori
+intre -90 si 90 pentru latitudine si intre -180 si 180 pentru longitudine, altfel sa se
+initializeze cu 0. Clasa contine o metoda verifica(), care arunca o exceptie de tip
+CoordonateInvalide, in cazul in care atat latitudinea, cat si longitudinea sunt 0,
+asociind un mesaj sugestiv.
+- Clasa Locatie mosteneste clasa PunctGeografic si adauga atributul nume (tipul
+String), getter si setter pentru acesta. In clasa se redefineste metoda verifica(), care va
+arunca exceptie de tipul CoordonateInvalide daca latitudinea este <=0 sau daca
+longitudinea <=0, asociind un mesaj corespunzator fiecarei situatii.
+Redefiniti in aceasta clasa metoda toString(), pentru a returna sub forma de string
+toate valorile atributelor clasei.
+- Clasa Test contine metoda main(). In main() se defineste un tablou de 5 obiecte de tip
+Locatie si se citesc de la tastatura punctele de interes, toata informatia intr-o singura
+linie, ca un singur string (nu atribut cu atribut) (de exemplu: “49.56 28.23
+RestaurantMarty”). Dupa initializarea fiecarui obiect verificati daca coordonatele sunt
+valide (cu metoda verifica() din clasa Locatie). In cazul in care nu se genereaza
+exceptie, afisati toata informatia obiectului respectiv si adaugati-l intr-o lista.
+
+
+
+package laborator;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+class CoordonateInvalide extends Exception {
+    public CoordonateInvalide(String message) {
+        super(message);
+    }
+}
+
+class PunctGeografic {
+    private double latitudine;
+    private double longitudine;
+
+    public void setLatitudine(double latitudine) {
+        if (latitudine >= -90 && latitudine <= 90) {
+            this.latitudine = latitudine;
+        } else {
+            this.latitudine = 0;
+        }
+    }
+
+    public double getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLongitudine(double longitudine) {
+        if (longitudine >= -180 && longitudine <= 180) {
+            this.longitudine = longitudine;
+        } else {
+            this.longitudine = 0;
+        }
+    }
+
+    public double getLongitudine() {
+        return longitudine;
+    }
+
+    public void verifica() throws CoordonateInvalide {
+        if (latitudine == 0 && longitudine == 0) {
+            throw new CoordonateInvalide("Coordonate invalide. Latitudinea și longitudinea sunt ambele 0.");
+        }
+    }
+}
+
+
+
+
+
+package laborator;
+
+class Locatie extends PunctGeografic {
+    private String nume;
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    @Override
+    public void verifica() throws CoordonateInvalide {
+        super.verifica();
+        if (getLatitudine() <= 0) {
+            throw new CoordonateInvalide("Latitudinea este mai mică sau egală cu 0.");
+        }
+
+        if (getLongitudine() <= 0) {
+            throw new CoordonateInvalide("Longitudinea este mai mică sau egală cu 0.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Nume: " + nume + ", Latitudine: " + getLatitudine() + ", Longitudine: " + getLongitudine();
+    }
+}
+
+
+
+
+package laborator;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Test {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Locatie> locatii = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Introduceti locatia de interes " + (i + 1) + ":");
+            String input = scanner.nextLine();
+
+            String[] parts = input.split(" ");
+            double latitudine = Double.parseDouble(parts[0]);
+            double longitudine = Double.parseDouble(parts[1]);
+            String nume = parts[2];
+
+            Locatie locatie = new Locatie();
+            locatie.setLatitudine(latitudine);
+            locatie.setLongitudine(longitudine);
+            locatie.setNume(nume);
+
+            try {
+                locatie.verifica();
+                locatii.add(locatie);
+            } catch (CoordonateInvalide e) {
+                System.out.println("Eroare: " + e.getMessage());
+            }
+        }
+
+        scanner.close();
+
+        
+
+        Collections.sort(locatii, (loc1, loc2) -> {
+            if (loc1.getLatitudine() != loc2.getLatitudine()) {
+                return Double.compare(loc2.getLatitudine(), loc1.getLatitudine()); // Sortare descrescătoare după latitudine
+            } else {
+                return loc1.getNume().compareTo(loc2.getNume()); // Sortare crescătoare după nume
+            }
+        });
+
+        System.out.println("\nLista sortată:");
+        for (Locatie locatie : locatii) {
+            System.out.println(locatie);
+        }
+    }
+}

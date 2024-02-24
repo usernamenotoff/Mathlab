@@ -1,0 +1,32 @@
+/* 1. Creați o interfață denumită Generator<T> cu singura metodă next(T var). Implementați interfața pentru a permite
+generarea valorilor următoare în cazul aplicării asupra unor variabile de tipuri de date concrete (Integer, Character, etc.).
+Instanțierea clasei se va face în cadrul metodei main( ), care va fi poziționată într-o clasă distinctă.*/
+
+
+
+import java.util.*;
+import java.text.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public interface Generator<T> {
+    T next(T var);
+}
+
+public class Main implements Generator<Integer> {
+
+    public static void main(String[] args) {
+        Main main = new Main();
+        Integer result = main.next(5);
+        System.out.println(result);
+    }
+
+    @Override
+    public Integer next(Integer var) {
+        return var + 1;
+    }
+}

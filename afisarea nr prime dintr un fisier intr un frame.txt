@@ -1,0 +1,75 @@
+package laborator;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+
+public class Desen extends JFrame {
+    private JTextArea primeTextArea;
+
+    public Desen() {
+        setTitle("Afișare Numere Prime"); // Setăm titlul ferestrei
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Setăm acțiunea la închiderea ferestrei
+        setSize(400, 300); // Setăm dimensiunile ferestrei
+
+        primeTextArea = new JTextArea(); // Inițializăm JTextArea pentru afișarea numerelor prime
+        primeTextArea.setEditable(false); // Setăm JTextArea ca neditabil
+        add(primeTextArea); // Adăugăm JTextArea la fereastra ferestrei
+
+        try {
+            int number = readNumberFromFile(); // Citim numărul din fișier
+            List<Integer> primes = getPrimeNumbers(number); // Obținem lista de numere prime până la numărul citit
+            displayPrimes(primes); // Afișăm numerele prime în JTextArea
+        } catch (IOException e) {
+            e.printStackTrace();
+            primeTextArea.setText("Eroare la citirea fisierului"); // În caz de eroare la citirea fișierului, afișăm un mesaj corespunzător
+        }
+    }
+
+    private int readNumberFromFile() throws IOException {
+        File file = new File("myfile.txt"); // Se crează un obiect File pentru a reprezenta fișierul
+        Scanner scanner = new Scanner(file); // Se creează un obiect Scanner pentru a citi din fișier
+        int number = scanner.nextInt(); // Se citește numărul din fișier
+        scanner.close(); // Se închide scanner-ul
+        return number; // Se returnează numărul citit
+    }
+
+    private List<Integer> getPrimeNumbers(int number) {
+        List<Integer> primes = new ArrayList<>(); // Se creează o listă pentru a stoca numerele prime
+        for (int i = 2; i <= number; i++) { // Se parcurg toate numerele de la 2 până la numărul dat
+            if (isPrime(i)) { // Dacă numărul curent este prim
+                primes.add(i); // Se adaugă în lista de numere prime
+            }
+        }
+        return primes; // Se returnează lista de numere prime
+    }
+
+    private boolean isPrime(int n) {
+        if (n < 2) {
+            return false; // Dacă numărul este mai mic decât 2, nu este prim
+        }
+        for (int i = 2; i <= Math.sqrt(n); i++) { // Se parcurg toate numerele de la 2 până la radical din număr
+            if (n % i == 0) { // Dacă numărul este divizibil cu un alt număr
+                return false; // Nu este prim
+            }
+        }
+        return true; // Dacă nu a fost găsit un divizor, numărul este prim
+    }
+
+    private void displayPrimes(List<Integer> primes) {
+        StringBuilder sb = new StringBuilder(); // Se creează un StringBuilder pentru a construi textul cu numerele prime
+        for (int prime : primes) { // Se parcurge lista de numere prime
+            sb.append(prime).append("\n"); // Se adaugă fiecare număr prim la StringBuilder, urmat de un rând nou
+        }
+        primeTextArea.setText(sb.toString()); // Se setează textul din JTextArea cu conținutul StringBuilder-ului
+    }
+
+    public static void main(String[] args) {
+        Desen frame = new Desen(); // Se creează o instanță a clasei Desen
+        frame.setVisible(true); // Se afișează fereastra
+    }
+}

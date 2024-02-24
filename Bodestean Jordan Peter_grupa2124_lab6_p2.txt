@@ -1,0 +1,69 @@
+/* 2. Scrieți o aplicație Java care, în cadrul metodei main( ), conține o secvență de cod care poate să lanseze excepții de tip
+ArithmeticException, ArrayIndexOutOfBoundsException, NullPointerException, NumberFormatException și altele pe care
+considerați că e util să le testați. Afișați în cadrul blocurilor catch mesajul generat de aceste excepții. În blocul finally,
+afișați mesajul ”Am prins sau nu excepți. */
+
+
+
+
+
+package laborator;
+import java.io.*;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.Comparator;
+import java.util.Scanner;
+
+
+
+
+
+
+public class jordan{
+
+	public static void main(String[] args) {
+
+		Scanner scan=new Scanner(System.in);
+		int[] vector={1,2,3,4,5,};
+		int nr=7;
+		String inputstring="12";
+		String d=ceva();
+		try {int impartire=nr/0;
+		
+		System.out.println("pentru aritmetic exception:"+impartire);
+			
+		}
+		
+		catch(ArithmeticException e) {
+			System.out.println("nu se poate impartii cu 0");
+		};
+		
+		try {int afisarenr=vector[5];
+		System.out.println("exceptie pentru array out of bounds:"+afisarenr);
+	}catch(ArrayIndexOutOfBoundsException e){
+		System.out.println("nr linii invalid:");
+	};
+	
+	try {int a=Integer.parseInt(inputstring);
+System.out.println("pentru number format exception:"+a);
+}catch(NumberFormatException e){
+System.out.println("a este int iar tu folosesti string,deci nu este corect:");
+
+}
+	
+	
+	System.out.println("nu se poate:"+d);
+	throw null;
+
+	}
+	public static String ceva() { 
+		return null;
+		
+	}
+}

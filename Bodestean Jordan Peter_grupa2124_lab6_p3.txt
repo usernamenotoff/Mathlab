@@ -1,0 +1,99 @@
+/* 3. Definiți un pachet care declară interfața Int1 (2 variabile întregi și o metodă numita sum( ) care returnează suma a doi
+întregi). În pachet mai există clasa Class1 (2 variabile protected de tip double, constructor, metode accesor și mutator
+pentru variabilele din clasă). În alt fișier sursă se adaugă în același pachet o nouă interfață numită Int2 (2 variabile de tip
+double și o metodă numită product( ) care returnează produsul a două valori de tip double).
+Într-un fișier sursă distinct, importați tot ce conține pachetul definit anterior și definiți o clasă numită Class2 care este
+derivată din Class1 și care implementează ambele interfețe Int1 și Int2. Instanțiați Class2 și aplicați metodele disponibile
+pentru a calcula suma și produsul unor variabile citite de la tastatură.
+*/
+
+
+package laborator;
+
+public interface INT1 {
+int a=0;
+int b=0;
+
+int suma();
+}
+
+ package laborator;
+
+public interface INT2 {
+ double r =0.0 ;
+double f = 0.0;
+ double product ();	
+}
+  package laborator;
+
+public class Class1 {
+protected double c;
+protected double d;
+
+Class1(double c,double d){
+	this.d=d;
+	this.c=c;
+}
+
+public void setC(double c) {
+	this.c=c;
+}
+public double getC() {
+	return c;
+}
+public void setd(double d) {
+	this.d=d;
+}
+public double getd() {
+	return d;
+}
+
+}
+ package laborator;
+import java.util.Scanner;
+public  class Class2 extends Class1 implements INT1,INT2 {
+	private int a;
+    private int b;
+    private double r;
+    private double f;
+	Class2(double c, double d) {
+		super(c, d);
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
+@Override
+public int suma() {
+	// TODO Auto-generated method stub
+	return (int)(a+b);
+}
+@Override
+public double product() {
+	return f*r;
+}
+
+public static void main(String[] args) {
+	
+	Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Introduceti doua numere intregi:");
+    int num1 = scanner.nextInt();
+    int num2 = scanner.nextInt();
+	System.out.println("introduceti doua nr de tip double");
+	double num3=scanner.nextDouble();
+	double num4=scanner.nextDouble();
+	
+	 Class2 obj=new Class2 (num1,num2);
+	 obj.a=num1;
+	 obj.b=num2;
+	 System.out.println("suma este:"+obj.suma());
+	Class2 obj2=new Class2(num3,num4);
+	obj2.r=num3;
+	obj2.f=num4;
+	System.out.println("produsul este:"+obj2.product());
+}
+
+
+}
+

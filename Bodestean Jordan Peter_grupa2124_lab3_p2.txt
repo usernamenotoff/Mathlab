@@ -1,0 +1,26 @@
+package laborator;
+import java.io.*;
+import java.util.Scanner;
+import java.util.Arrays;
+public class jordan {
+	static Scanner in=new Scanner(System.in);
+	
+	public static void main(String[] args) throws IOException{
+
+		System.out.print("sirul de caractere  este:");
+		String text=in.nextLine();
+		char[] ch = text.toCharArray();  
+		 int len = ch.length; 
+		 System.out.println("tabloul de caractere este:");  
+	        for (int i = 0; i < len; i++) {  
+	            System.out.println(ch[i]);  
+	        }  
+	        System.out.println("introduceti litera cautata:");
+		char a=in.next().charAt(0);
+		int contor=0;
+		for(int i=0;i<len;i++) {
+			if(ch[i]==a)contor++;
+		}
+		System.out.print("numarul de aparitii este:"+contor);
+		}
+	}

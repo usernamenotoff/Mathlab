@@ -1,0 +1,55 @@
+/* 5. Scrieți o aplicație Java ce citește un set de fișiere text ce conțin informațiile studenților din anul curent. Fișierele sunt
+stocate pe sistemul local cu denumirea An_y_Grupa_xxxx.txt . Să se agregheze informația din aceste fișiere folosind
+SequenceInputStream și să se genereze un nou fișier ce conține toți studenții din anul curent ordonați alfabetic.*/
+
+
+package laborator
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        String folderPath = "C:\\Anul_Curent\\"; 
+        String filePrefix = "An_y_Grupa_"; 
+        
+        ArrayList<String> studentList = new ArrayList<>();
+        
+       
+        for (int i = 0; i <= 4; i++) { 
+            String filePath = folderPath + filePrefix + i + "xxx.txt";
+            File file = new File(filePath);
+            
+            
+            if (file.exists()) {
+                FileInputStream fis = new FileInputStream(file);
+                SequenceInputStream sis = new SequenceInputStream(fis, System.in);
+                InputStreamReader isr = new InputStreamReader(sis);
+                BufferedReader br = new BufferedReader(isr);
+                
+                String line;
+                while ((line = br.readLine()) != null) {
+                    studentList.add(line);
+                }
+                
+                br.close();
+                isr.close();
+                sis.close();
+                fis.close();
+            }
+        }
+        
+        
+        Collections.sort(studentList);
+        
+        
+        String outputFilePath = folderPath + "Anul_Curent_Studenti.txt";
+        FileWriter fw = new FileWriter(outputFilePath);
+        for (String student : studentList) {
+            fw.write(student + "\n");
+        }
+        fw.close();
+        
+        System.out.println("Operatiunea s-a terminat cu succes!");
+    }
+}

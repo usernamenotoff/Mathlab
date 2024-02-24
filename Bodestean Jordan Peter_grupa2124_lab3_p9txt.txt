@@ -1,0 +1,38 @@
+package laborator;
+import java.io.*;
+
+
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+public class jordan {
+	
+	
+	public static void main(String[] args) throws IOException{
+
+List<String>pachet=new ArrayList<>(Arrays.asList(
+"2 rosu","3 rosu","4 rosu","5 rosu","6 rosu","7 rosu","8 rosu",
+"9 rosu","10 rosu"," J rosu","as rosu","Q rosu","K rosu",
+"2 negru","3 negru","4 negru","5 negru","6 negru","7 negru","8 negru",
+"9 negru","10 negru"," J negru","as negru","Q negru","K negru",
+"2 trefla","3 trefla","4 trefla","5 trefla","6 trefla","7 trefla","8 trefla",
+"9 trefla","10 trefla"," J trefla","as trefla","Q trefla","K trefla",
+"2 romb","3 romb","4 romb","5 romb","6 romb","7 romb","8 romb",
+"9 romb","10 romb"," J romb","as romb","Q romb","K romb"));
+Random random=new Random();
+int contor=0;
+String carte;
+do {
+	carte=pachet.remove(random.nextInt(pachet.size()));
+	contor++;
+	System.out.println("cartea extrasa:" +carte+ ",numarul de carti extrase:"+contor);
+	
+}while(!(carte.contains("9 trefla")||carte.contains("10 trefla") ||carte.contains("J trefla")|| carte.contains("Q trefla")||carte.contains("K trefla")));
+	}
+}

@@ -1,0 +1,108 @@
+/*5. Scrieti o clasa Student cu campurile private nume, grupa, media, si metode getter/setter pentru campuri. In main(),
+plasata in alta clasa, creati o colectie de tip SortedSet, cu obiecte de tip Student, initializate cu valori citite de la tastatura,
+care sa pastreze elementele descrescator dupa medie si crescator dupa nume (cei care au aceeasi medie sa fie in ordine
+alfabetica). Parcurgeti cu for-loop colectia si afisati toate elementele. Parcurgeti apoi colectia cu un iterator si afisati toti
+studentii cu media >=8. Parcurgeti colectia cu forEach() si afisati toate datele studentilor dintr-o anumita grupa/*
+
+
+import java.util.*;
+import java.text.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import java.util.*;
+
+class Student implements Comparable<Student> {
+    private String nume;
+    private int grupa;
+    private double media;
+
+    public Student(String nume, int grupa, double media) {
+        this.nume = nume;
+        this.grupa = grupa;
+        this.media = media;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public int getGrupa() {
+        return grupa;
+    }
+
+    public void setGrupa(int grupa) {
+        this.grupa = grupa;
+    }
+
+    public double getMedia() {
+        return media;
+    }
+
+    public void setMedia(double media) {
+        this.media = media;
+    }
+
+    @Override
+    public int compareTo(Student s) {
+        if (s.media == media) {
+            return nume.compareTo(s.nume);
+        }
+        return Double.compare(s.media, media);
+    }
+
+    @Override
+    public String toString() {
+        return nume + " - Grupa " + grupa + " - Media: " + media;
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        SortedSet<Student> studenti = new TreeSet<>();
+
+        System.out.print("Introduceti numarul de studenti: ");
+        int nrStudenti = scanner.nextInt();
+
+        for (int i = 1; i <= nrStudenti; i++) {
+            System.out.println("Introduceti informatiile pentru studentul #" + i + ":");
+            System.out.print("Nume: ");
+            String nume = scanner.next();
+            System.out.print("Grupa: ");
+            int grupa = scanner.nextInt();
+            System.out.print("Media: ");
+            double media = scanner.nextDouble();
+            studenti.add(new Student(nume, grupa, media));
+        }
+
+        System.out.println("\nStudentii ordonati descrescator dupa medie si crescator dupa nume:");
+        for (Student student : studenti) {
+            System.out.println(student);
+        }
+
+        System.out.println("\nStudentii cu media >= 8:");
+        Iterator<Student> it = studenti.iterator();
+        while (it.hasNext()) {
+            Student student = it.next();
+            if (student.getMedia() >= 8) {
+                System.out.println(student);
+            }
+        }
+
+        System.out.println("\nStudentii dintr-o anumita grupa:");
+        System.out.print("Introduceti numarul grupei: ");
+        int grupaCautata = scanner.nextInt();
+        studenti.stream()
+                .filter(student -> student.getGrupa() == grupaCautata)
+                .forEach(System.out::println);
+    }
+}

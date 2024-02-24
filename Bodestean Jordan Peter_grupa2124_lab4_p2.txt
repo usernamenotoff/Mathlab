@@ -1,0 +1,49 @@
+package laborator;
+
+public class X {
+private String string;
+protected String a;
+int nr;
+
+public X(String string,String a,int nr) {
+	this.string=string;
+	this.a=a;
+	this.nr=nr;
+	
+}
+public String getstring() {
+	return string;
+}
+protected String geta() {
+	return a;
+}
+public int getnr() {
+	return nr;
+}
+public void  setstring(String string) {
+	this.string=string;
+}
+protected  void seta(String a) {
+	this.a=a;
+}
+public void setnr(int nr) {
+	this.nr=nr;
+	
+}
+protected void finalize() {
+	System.out.println("mesaj corespunzator");
+}
+public static void main(String[] args) {
+	X obiect=new X("da","nu",22);
+	System.out.println(obiect.geta());
+	System.out.println(obiect.getnr());
+	System.out.println(obiect.getstring());
+	obiect.setstring("sharoma");
+	obiect.seta("costa");
+	obiect.setnr(15);
+	System.out.println(obiect.geta());
+	System.out.println(obiect.getnr());
+	System.out.println(obiect.getstring());
+	
+}
+}

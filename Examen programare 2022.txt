@@ -1,0 +1,201 @@
+Scrieti o aplicatie Java in care intr-o fereastra sa aveti urmatoarele componente grafice (AWT sau Swing):
+- doua campuri de editare (TextField). In primul camp de editare sa puteti introduce doar litere (numele
+unui produs), in al doilea doar valori numerice reale (pretul unui produs, sa permita introducerea valorii
+cu zecimale). Validari la introducerea datelor !!!
+- un camp de editare de tip TextArea
+- o eticheta
+- 2 butoane, Scrie si Salveaza
+La apasarea butonului Scrie se citesc valorile din campurile de editare si apoi:
+• daca pretul este mai mare de 200, se va genera o exceptie proprie, care va scrie un mesaj
+corespunzator in eticheta
+• altfel:
+1) valorile din campurile de editare vor fi folosite pentru a instantia un obiect de tip Produs. Clasa
+Produs contine campurile nume (String) si pret (double), constructori, setteri/getteri, redefinirea
+metodei toString()).
+2) valorile vor fi scrise in componenta TextArea, la fiecare apasare de buton pe randuri diferite.
+Culoarea de scriere se modifica la fiecare scriere si se genereaza aleator
+3) fiecare obiect Produs se va adauga intr-o colectie
+La apasarea butonului Salveaza: se sorteaza elementele din lista descrescator dupa pret, iar cele cu
+acelasi pret se sorteaza crescator dupa nume. Se scriu apoi in fisierul “Produse.txt” obiectele din
+colectia sortata, fiecare pe linii diferite.
+
+
+
+
+
+
+
+package laborator;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+
+public class Textfield extends JFrame {
+	FileWriter fileWriter;
+JTextField tl;
+JTextField tn;
+JButton bScrie, bSave;
+JTextArea edit; 
+JPanel p1,p2;
+List<Produs> lista;
+public Textfield(String titlu) {
+    super(titlu);
+    setSize(600, 600);
+    setLocation(100, 100);
+    setLayout(new FlowLayout());
+   
+    init();
+}
+
+public void init() {
+	lista=new ArrayList<Produs>();
+    tl=new JTextField(10);
+    tn=new JTextField(10);
+    edit = new JTextArea();
+   
+    
+    bScrie=new JButton("Scrie");
+    bSave=new JButton("Save");
+    
+    p1=new JPanel();
+	  
+    p1.setPreferredSize(new Dimension(300, 300));
+    p1.setBorder(BorderFactory.createEtchedBorder());
+   p1.add(new JLabel("Produsul"));
+    p1.add(tl);
+    p1.add(new JLabel("pret:"));
+    p1.add(tn);
+    p1.add(edit);
+    add(p1);
+    
+    
+    tl.addKeyListener(new KeyAdapter() {	
+            public void keyTyped(KeyEvent ke) {
+                    char c=ke.getKeyChar();
+                    if(!Character.isLetter(c)&& (c != KeyEvent.VK_BACK_SPACE))
+                            ke.consume();
+            }
+    });
+   
+    
+    p2=new JPanel();
+    p2.setPreferredSize(new Dimension(200, 100));
+    p2.setBorder(BorderFactory.createLineBorder(Color.RED));
+   
+    p2.add(bScrie);
+    p2.add(bSave);
+    add(p2);
+    
+    tn.addKeyListener(new KeyAdapter() {
+        public void keyTyped(KeyEvent ke) {
+                char c=ke.getKeyChar();
+                if(!Character.isDigit(c)&& (c != KeyEvent.VK_BACK_SPACE))
+                        ke.consume();
+        }
+})	;
+    bScrie.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+        	String text = tl.getText();
+            String numar = tn.getText();
+
+            double price = Double.parseDouble(numar);
+            
+            if (price > 200) {
+                edit.append("Introduceți alt preț\n");
+            } else {
+                edit.append(text + " " + numar + "\n");
+                Produs p = new Produs(text, Integer.parseInt(numar));
+                lista.add(p);
+            }
+        }
+               
+});
+    
+    bSave.addActionListener(new ActionListener() {
+        
+        	public void actionPerformed(ActionEvent ae) {
+                lista.sort(Comparator.comparing(Produs::getGrupa));
+                try {
+                PrintWriter fw=new PrintWriter( new FileWriter("test.txt"), true);
+                for(Produs p:lista) {
+                        fw.write(p.toString());
+                }
+                fw.close();
+                }catch(IOException ie) {
+                        ie.printStackTrace();
+                }
+        }
+});
+
+ 
+   
+} 
+}
+
+package laborator;
+
+import javax.swing.JFrame;
+
+public class Examen {
+	public static void main(String[] args) {
+        Textfield frame = new Textfield("Exemplu GUI");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
+
+
+package laborator;
+
+public class Produs {
+	String produs;
+	   double pret;
+	   
+	   public Produs(String n, double g) {
+	           produs=n;
+	           pret=g;
+	   }
+	   
+	   public String getNume() {
+	           return produs;
+	   }
+	   public void setNume(String s) {
+	           produs=s;
+	   }
+	   public double getGrupa() {
+	           return pret;
+	   }
+	   public void setGrupa(double g) {
+	           pret=g;
+	   }
+	   
+	   public String toString() {
+	           return "Produsul: "+produs+" Pret: "+pret;
+	   }
+	}// clasa Student
+

@@ -1,0 +1,64 @@
+/* 1’’. Folosiți structura de la 1’ și implementați expresii lambda pentru definirea operațiilor aritmetice. Verificați
+funcționalitatea.*/
+
+package laborator;
+import java.io.*;
+
+
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+
+
+
+
+
+
+public class jordan  {
+	  
+	
+
+	 interface Operatie {
+	        double calculeaza(double a, double b);
+	    }
+
+	  
+	    public double calculeaza(double a, double b, Operatie op) {
+	        return op.calculeaza(a, b);
+	    }
+
+	
+	
+public static void main(String[] args) {Scanner scanner = new Scanner(System.in);
+double a=10.9; 
+double b = 5.1;
+
+jordan opMat=new jordan();
+
+Operatie adunare = (x, y) -> x + y;
+Operatie scadere = (x, y) -> x - y;
+Operatie inmultire = (x, y) -> x * y;
+Operatie impartire = (x, y) -> x / y;
+Operatie radical = (x, y) -> Math.pow(x, 1/y);
+Operatie putere = (x, y) -> Math.pow(x, y);
+
+
+System.out.println("a + b = " + opMat.calculeaza(a, b, adunare));
+System.out.println("a - b = " + opMat.calculeaza(a, b, scadere));
+System.out.println("a * b = " + opMat.calculeaza(a, b, inmultire));
+System.out.println("a / b = " + opMat.calculeaza(a, b, impartire));
+System.out.println("radical(a, b) = " + opMat.calculeaza(a, b, radical));
+System.out.println("a ^ b = " + opMat.calculeaza(a, b, putere));
+}
+}
+
+
+
+
+

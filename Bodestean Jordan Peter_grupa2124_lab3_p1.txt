@@ -1,0 +1,59 @@
+package laborator;
+import java.io.*;
+import java.util.Scanner;
+public class jordan {
+	static Scanner in=new Scanner(System.in);
+	
+	public static void main(String[] args) throws IOException{
+		
+	Scanner scanner = new Scanner(System.in);
+		
+		System.out.println("introduceti nr lunii:");
+	int n=in.nextInt();
+	
+	String month = null;
+
+
+if(n<=12&&n>0) {
+	switch(n) {
+	case 1:month="ianuarie";break; 
+	case 2:month="februarie";break;
+	case 3:month="martie";break;
+	case 4:month="aprilie";break;
+	case 5:month="mai";break;
+	case 6:month="iunie";break;
+	case 7:month="iulie";break;
+	case 8:month="august";break;
+	case 9:month="septembrie";break;
+	case 10:month="octombrie";break;
+	case 11:month="noiembrie";break;
+	case 12:month="decembrie";break;
+}
+
+	System.out.println(month);
+}
+else System.out.println("nr este incorect");
+
+	System.out.println("introduceti luna:");
+	String a=scanner.nextLine();
+	int c = 0;
+	switch(a) {
+	case "ianuarie" :c=1;break; 
+	case "februarie":c=2;break;
+	case "martie":c=2;break;
+	case "aprilie":c=2;break;
+	case "mai":c=2;break;
+	case "iunie":c=2;break;
+	case "iulie":c=2;break;
+	case "august":c=2;break;
+	case "septembrie":c=2;break;
+	case "octombrie":c=2;break;
+	case "noiembrie":c=2;break;
+	case "decembrie":c=2;break;
+}
+	if(c!=0) {
+		System.out.println("nr lunii este:"+c);
+	}
+	else System.out.println("numele este gresit");
+	}
+	}

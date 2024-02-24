@@ -1,0 +1,112 @@
+package laborator;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
+public class Desen extends JFrame {
+    private double X, Y, R;
+    private JTextField tl;
+    private JTextField tn,rl;
+    private JButton afis;
+    private MyCanvas canvas;
+    private Random random;
+    private JTextArea edit;
+    private Color squareColor;
+
+    public Desen() {
+        setTitle("Desen Pătrat");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(500, 500);
+
+        random = new Random();
+
+        canvas = new MyCanvas();
+        canvas.setPreferredSize(new Dimension(400, 400));
+
+        tl = new JTextField(10);
+        tn = new JTextField(10);
+        rl=new JTextField(10);
+        afis = new JButton("Afiseaza");
+        edit = new JTextArea(5, 20);
+        edit.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(edit);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        
+        afis.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    X = Double.parseDouble(tl.getText());
+                    Y = Double.parseDouble(tn.getText());
+                    R = Double.parseDouble(rl.getText());
+                    generateRandomColor(); // Generare culoare aleatorie
+                    double area = R * R;
+                    edit.append("Aria patratului: " + area + "\n");
+                    canvas.repaint();
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        JPanel p1 = new JPanel();
+        p1.add(new JLabel("X:"));
+        p1.add(tl);
+        p1.add(new JLabel("Y:"));
+        p1.add(tn);
+        p1.add(new JLabel("R"));
+        p1.add(rl);
+        p1.add(afis);
+
+        JPanel p2 = new JPanel();
+        p2.add(canvas);
+
+        JPanel p3 = new JPanel();
+        p3.add(scrollPane);
+        
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.add(p1);
+        mainPanel.add(p2);
+        mainPanel.add(p3);
+        add(mainPanel);
+        setVisible(true);
+    }
+
+    private void generateRandomColor() {
+        int red = random.nextInt(256);
+        int green = random.nextInt(256);
+        int blue = random.nextInt(256);
+        squareColor = new Color(red, green, blue);
+    }
+
+    private class MyCanvas extends Canvas {
+        public void paint(Graphics g) {
+            super.paint(g);
+            int x = (int) X;
+            int y = (int) Y;
+            int sideLength = (int) R;
+            g.setColor(squareColor);
+            g.fillRect(x, y, sideLength, sideLength);
+        }
+    }
+
+    public static void main(String[] args) {
+        Desen desen = new Desen();
+    }
+}

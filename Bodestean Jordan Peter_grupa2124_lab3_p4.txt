@@ -1,0 +1,28 @@
+package laborator;
+import java.io.*;
+
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+public class jordan {
+	
+	
+	public static void main(String[] args) throws IOException{
+Scanner scan=new Scanner(System.in);
+int a;
+System.out.print("introduceti o valoare");		      
+		     
+		      a=scan.nextInt();
+		      System.out.println("Reprezentarea valorii in binar: " + Integer.toBinaryString(a));
+		        System.out.println("Reprezentarea valorii in octal: " + Integer.toOctalString(a));
+		        System.out.println("Reprezentarea valorii in hexadecimal: " + Integer.toHexString(a));
+		        System.out.print("Introduceti baza de numeratie dorita: ");
+int bazanumeratie=scan.nextInt();
+if(bazanumeratie<2||bazanumeratie>36)System.out.println("eroare.Va rog introduceti alta valoare");
+else {
+String numar=Integer.toString(a,bazanumeratie);
+System.out.println("valoarea"+a+ "in baza de numeratie" +bazanumeratie+ "este:" +numar);
+	}
+	
+}
+	}

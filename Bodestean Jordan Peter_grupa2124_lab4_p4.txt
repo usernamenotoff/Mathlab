@@ -1,0 +1,69 @@
+package laborator;
+import java.util.Scanner;
+public class Persoana {
+private String nume;
+private float latitudine;
+private float longitudine;
+
+public Persoana(float latitudine ,float longitutide,String nume) {
+	this.latitudine=0;
+	this.longitudine=0;
+	this.nume=null;
+}
+	public void finalize() {
+		System.out.println("mesaj aparut la distrugerea obiectelor");
+	}
+	public void setNume(String nume) {
+		this.nume=nume;
+	}
+	public String getnume() {
+		return nume;
+	}
+	
+	public void setLatitudine(float latitudine){
+		this.latitudine=latitudine;
+	}
+	public float getLatitudine() {
+		return latitudine;
+	}
+	public void setLongitudine(float longitudine) {
+		this.latitudine=longitudine;
+		
+	}
+	public float getLongitudine() {
+		return longitudine;
+	}
+	public Persoana(String nume,float longitudine,float latitudine) {
+		this.setNume(nume);
+		this.setLongitudine(longitudine);
+		this.setLatitudine(latitudine);		
+		}
+	
+	
+public static void main(String[] args) {
+	Scanner scan=new Scanner(System.in);
+	System.out.println("introduceti nr de obiecte");
+	int n=scan.nextInt();
+	Persoana p[]=new Persoana[n];
+	for(int i=0;i<n;i++) {
+		System.out.println("Persoana:"+(i+1));
+		System.out.println("Numele:");
+		String nume=scan.next();
+		System.out.println("Latitudine:");
+		float latitudine=scan.nextFloat();
+		System.out.println("Longitudine");
+		float longitudine=scan.nextFloat();
+		
+		p[i]=new Persoana(nume,longitudine,latitudine);
+	}
+		
+		for(int i=0;i<p.length;i++) {
+			System.out.println("obiectele create sunt:");
+			System.out.println(p[i].getnume()+" "+p[i].getLatitudine()+" "+
+			p[i].getLongitudine());
+		}
+	
+	
+}
+	
+}

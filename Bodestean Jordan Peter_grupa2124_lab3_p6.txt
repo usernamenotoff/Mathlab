@@ -1,0 +1,30 @@
+package laborator;
+import java.io.*;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+public class jordan {
+	static Scanner in=new Scanner(System.in);
+	
+	public static void main(String[] args) throws IOException{
+
+		      Random rand = new Random();
+		      int a = rand.nextInt(100);
+		      int b = rand.nextInt(100);
+		    
+		      System.out.println("a = " + a);
+		      System.out.println("b = " + b);
+		      
+		      
+		      int suma = a + b;
+		      int diferenta = a - b;
+		      int produs = a * b;
+		      double cat = (double) a / b; 
+		      System.out.println("Suma = " + suma);
+		      System.out.println("Diferenta = " + diferenta);
+		      System.out.println("Produsul = " + produs);
+		      System.out.println("Catul = " + cat);
+		   }
+		
+	}
+	

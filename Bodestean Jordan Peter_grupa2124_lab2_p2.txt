@@ -1,0 +1,21 @@
+package laborator;
+import java.io.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class jordan {
+	
+	public static void main(String[] args) throws IOException{
+		int n;
+	System.out.println("introduceti numarul n =");
+		BufferedReader reader =new BufferedReader(new InputStreamReader(System.in));
+		n = Integer.valueOf(reader.readLine());
+
+		int fact=1;
+		for(int i=1;i<=n;i++)
+		fact=fact*i;
+
+		System.out.println(fact);
+
+}
+}

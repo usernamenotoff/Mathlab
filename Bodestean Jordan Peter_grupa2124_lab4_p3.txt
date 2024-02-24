@@ -1,0 +1,81 @@
+package laborator;
+import java.io.*;
+
+
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+public class X {
+
+private int n;
+private int [][]a;
+int prag;
+public X(int n) {
+	this.n=n;
+	this.a=new int[n][n];
+}
+
+public void setn(int n) {
+	this.n=n;
+
+}
+public int getn() {
+	return n;
+}
+public int prag() {
+	return prag;
+}
+public void setprag(int prag) {
+	this.prag=prag;
+}
+public void seta(int i,int j,int val) {
+	a[i][j]=val;
+	}
+
+	public int getA(int i, int j){ 
+		return a[i][j];
+	}
+public void afisarematrice() {
+	
+	System.out.println(Arrays.deepToString(a));
+}
+public void afisareprag() {
+	int [][]linia=new int[n][n];
+	for( int i=0;i<n;i++) {
+		for( int j=0;j<n;j++)
+			if (prag - (prag * 0.05) <= a[i][j] &&a[i][j]<= prag + (prag * 0.05))  { 
+			linia[i][j]=a[i][j];}
+		
+	}
+System.out.println(Arrays.deepToString(linia));
+}
+public static void main(String[] args) {
+
+		X m=new X(3);
+		m.setn(3);
+		m.seta(0, 0, 1);
+        m.seta(0, 1, 2);
+        m.seta(0, 2, 3);
+
+        m.seta(1, 0, 4);
+        m.seta(1, 1, 5);
+        m.seta(1, 2, 8);
+
+        m.seta(2, 0, 5);
+        m.seta(2, 1, 2);
+        m.seta(2, 2, 1);
+		
+	m.setprag(2);
+	System.out.println("matricea este:");
+	m.afisarematrice();
+	System.out.println("matricea respectand pragul este:");
+	m.afisareprag();
+}
+}
+

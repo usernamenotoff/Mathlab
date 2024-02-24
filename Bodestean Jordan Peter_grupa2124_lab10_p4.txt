@@ -1,0 +1,75 @@
+/*4. Scrieți o aplicație de tip Frame ce afișează o miră de televiziune. Mira va conține minim 10 nivele de gri și culorile de
+bază: roșu, verde, albastru, galben, cyan și magenta. Mira va acoperi întreaga dimensiune a componentei în care se face
+desenarea.*/
+
+
+
+package laborator;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.*;  
+import javax.swing.*;
+import java.awt.*;
+
+
+
+	public class MenuExample  {
+		public static void main(String args[])  
+	       {  
+	 
+	        JFrame frame = new JFrame(); //JFrame Creation       
+	        frame.setTitle("Televizor");
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	       frame.setSize(1000,1000);
+	       
+	        JPanel panel=new JPanel() {
+	        protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                drawTVTestPattern(g);
+            }
+	        };
+        
+	        frame.setBackground(Color.gray); 
+	        panel.setBackground(new Color(150,200,250));
+	        panel.setSize(100,100);
+	        frame.add(panel);
+	        frame.setVisible(true);
+	       
+	    }
+
+	private static void drawTVTestPattern(Graphics g) {
+		int rectSize = 100; 
+	    int startX = 100; 
+	    int startY = 200; 
+	    Color[] colors = {
+	            new Color(128, 128, 128), //gri
+	            new Color(255, 0, 0),     // rosu
+	            new Color(0, 255, 0),     // verde
+	            new Color(0, 0, 255),     // albastru
+	            new Color(255, 255, 0),   // galben
+	            new Color(0, 255, 255),   // cyan
+	            new Color(255, 0, 255),// magenta
+	            new Color(255,165,0),//portocaliu
+	            new Color(0, 0, 0),//negru
+	            new Color(148, 0, 211)//violet
+	        };
+	        int a=colors.length;
+    for(int i=0;i<a;i++) {
+    	int rectX=startX+(i%2)*rectSize;
+    	int rectY=startY+(i/2)*rectSize;
+     g.setColor(colors[i]);
+     g.fillRect(rectX,rectY,rectSize,rectSize);
+    }
+    }
+	}
+
+	   
+	
+	    

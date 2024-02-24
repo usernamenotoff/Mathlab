@@ -1,0 +1,165 @@
+/*3. Implementați o aplicație în cadrul căreia să aveți o clasă SetterGetter generică ce permite setarea și returnarea
+valorilor atributelor pentru mai multe tipuri de obiecte. De exemplu, având clasele Copil, Adult și Pensionar, să se poată
+seta și returna numele și vârsta acestora. Creați colecții cu intrări unice de obiecte de tip Copil, Adult, Pensionar pe care
+să le populați cu date citite din consolă. Afișați datele preluate în diferite moduri.*/
+
+
+
+
+public class Persoana {
+    private String nume;
+    private int varsta;
+
+    public Persoana(String nume, int varsta) {
+        this.nume = nume;
+        this.varsta = varsta;
+    }
+
+    public String getNume() {
+        return nume;
+    }
+
+    public void setNume(String nume) {
+        this.nume = nume;
+    }
+
+    public int getVarsta() {
+        return varsta;
+    }
+
+    public void setVarsta(int varsta) {
+        this.varsta = varsta;
+    }
+}
+
+public class Copil extends Persoana {
+    private String numeMama;
+
+    public Copil(String nume, int varsta, String numeMama) {
+        super(nume, varsta);
+        this.numeMama = numeMama;
+    }
+
+    public String getNumeMama() {
+        return numeMama;
+    }
+
+    public void setNumeMama(String numeMama) {
+        this.numeMama = numeMama;
+    }
+}
+
+public class Adult extends Persoana {
+    private String locMunca;
+
+    public Adult(String nume, int varsta, String locMunca) {
+        super(nume, varsta);
+        this.locMunca = locMunca;
+    }
+
+    public String getLocMunca() {
+        return locMunca;
+    }
+
+    public void setLocMunca(String locMunca) {
+        this.locMunca = locMunca;
+    }
+}
+
+public class Pensionar extends Persoana {
+    private String pensie;
+
+    public Pensionar(String nume, int varsta, String pensie) {
+        super(nume, varsta);
+        this.pensie = pensie;
+    }
+
+    public String getPensie() {
+        return pensie;
+    }
+
+    public void setPensie(String pensie) {
+        this.pensie = pensie;
+    }
+}
+
+public class SetterGetter<T extends Persoana> {
+    private List<T> listaPersoane = new ArrayList<>();
+
+    public void adaugaPersoana(T persoana) {
+        if (!listaPersoane.contains(persoana)) {
+            listaPersoane.add(persoana);
+        }
+    }
+
+    public void afisareNumePersoane() {
+        for (T persoana : listaPersoane) {
+            System.out.println(persoana.getNume());
+        }
+    }
+
+    import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        ArrayList<Object> objects = new ArrayList<>();
+
+        while (true) {
+            System.out.println("Selectati tipul de obiect (1 - Copil, 2 - Adult, 3 - Pensionar) sau X pentru a iesi:");
+            String input = scanner.nextLine();
+            if (input.equalsIgnoreCase("X")) {
+                break;
+            }
+            int option = Integer.parseInt(input);
+            switch (option) {
+                case 1:
+                    Copil copil = new Copil();
+                    System.out.println("Introduceti numele copilului:");
+                    copil.setNume(scanner.nextLine());
+                    System.out.println("Introduceti varsta copilului:");
+                    copil.setVarsta(Integer.parseInt(scanner.nextLine()));
+                    objects.add(copil);
+                    break;
+                case 2:
+                    Adult adult = new Adult();
+                    System.out.println("Introduceti numele adultului:");
+                    adult.setNume(scanner.nextLine());
+                    System.out.println("Introduceti varsta adultului:");
+                    adult.setVarsta(Integer.parseInt(scanner.nextLine()));
+                    objects.add(adult);
+                    break;
+                case 3:
+                    Pensionar pensionar = new Pensionar();
+                    System.out.println("Introduceti numele pensionarului:");
+                    pensionar.setNume(scanner.nextLine());
+                    System.out.println("Introduceti varsta pensionarului:");
+                    pensionar.setVarsta(Integer.parseInt(scanner.nextLine()));
+                    objects.add(pensionar);
+                    break;
+                default:
+                    System.out.println("Optiune invalida!");
+                    break;
+            }
+        }
+
+        // Afisare obiecte din lista
+        System.out.println("Obiectele introduse sunt:");
+        for (Object object : objects) {
+            if (object instanceof Copil) {
+                Copil copil = (Copil) object;
+                System.out.println("Copil: " + copil.getNume() + ", " + copil.getVarsta() + " ani.");
+            } else if (object instanceof Adult) {
+                Adult adult = (Adult) object;
+                System.out.println("Adult: " + adult.getNume() + ", " + adult.getVarsta() + " ani.");
+            } else if (object instanceof Pensionar) {
+                Pensionar pensionar = (Pensionar) object;
+                System.out.println("Pensionar: " + pensionar.getNume() + ", " + pensionar.getVarsta() + " ani.");
+            }
+        }
+    }
+}
+

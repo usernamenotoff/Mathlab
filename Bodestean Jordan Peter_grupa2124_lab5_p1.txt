@@ -1,0 +1,81 @@
+/*1.Să se implementeze o interfață Java care conține prototipurile metodelor de adunare, scădere, înmulțire, împărțire,
+radical și ridicare la putere. Toate metodele vor avea doi parametri de tip double și vor specifica tipul returnat double.
+Implementați interfața astfel încât operațiile să fie definite în cadrul unei clase. Instanțiați clasa și verificați operațiile
+implementate. */
+
+package laborator;
+import java.io.*;
+
+
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+
+
+interface operatii_matematice {
+	
+    double aduna(double a, double b);
+    double scade(double a, double b);
+    double inmulteste(double a, double b);
+    double imparte(double a, double b);
+    double radical(double a, double b);
+    double ridicareLaPutere(double a, double b);
+
+}
+
+
+
+public class jordan implements operatii_matematice {
+	  
+	    public double aduna(double a, double b) {
+	        return a + b;
+	    }
+
+	    public double scade(double a, double b) {
+	        return a - b;
+	    }
+
+	    public double inmulteste(double a, double b) {
+	        return a * b;
+	    }
+
+	    public double imparte(double a, double b) {
+	        if (b == 0) {
+	            throw new IllegalArgumentException("Nu se poate împărți la zero!");
+	        }
+	        return a / b;
+	    }
+
+	    public double radical(double a, double b) {
+	        if (b == 0) {
+	            throw new IllegalArgumentException("Radicalul trebuie să fie diferit de zero!");
+	        }
+	        return Math.pow(a, 1/b);
+	    }
+
+	    public double ridicareLaPutere(double a, double b) {
+	        return Math.pow(a, b);
+	    }
+	
+
+	
+	
+public static void main(String[] args) {Scanner scanner = new Scanner(System.in);
+double a=10.9; 
+double b = 5.1;
+
+jordan operatii=new jordan();
+System.out.println("a + b = " + operatii.aduna(a, b));
+System.out.println("a - b = " + operatii.scade(a, b));
+System.out.println("a * b = " + operatii.inmulteste(a, b));
+System.out.println("a / b = " + operatii.imparte(a, b));
+System.out.println("radicalul lui a în b = " + operatii.radical(a, b));
+System.out.println("a ridicat la puterea b = " + operatii.ridicareLaPutere(a, b));
+}
+}

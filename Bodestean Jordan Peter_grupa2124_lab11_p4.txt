@@ -1,0 +1,62 @@
+/*4. Creați o aplicație ce preia din două câmpuri text (TextField) numele vostru și grupa din care faceți parte și afișează
+această informație într-o etichetă de culoare RGB (122,123,129).*/
+
+package laborator; 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+public class MenuExample extends JFrame {
+    private JTextField nameField;
+    private JTextField groupField;
+    private JLabel infoLabel;
+
+    public  MenuExample () {
+        setTitle("Information App");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        
+        nameField = new JTextField(20);
+        groupField = new JTextField(20);
+        infoLabel = new JLabel();
+
+       
+        Color labelColor = new Color(122, 123, 129);
+        infoLabel.setForeground(labelColor);
+
+        
+        JPanel panel = new JPanel(new GridLayout(3, 2));
+        panel.add(new JLabel("Nume:"));
+        panel.add(nameField);
+        panel.add(new JLabel("Grupa:"));
+        panel.add(groupField);
+        panel.add(new JLabel("Informații:"));
+        panel.add(infoLabel);
+
+        
+        getContentPane().add(panel);
+
+       
+        ActionListener listener = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
+                String group = groupField.getText();
+                String information = "Nume: " + name + " | Grupa: " + group;
+                infoLabel.setText(information);
+            }
+        };
+        nameField.addActionListener(listener);
+        groupField.addActionListener(listener);
+
+        pack();
+        setLocationRelativeTo(null); 
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+       
+                new  MenuExample ();
+            
+        
+    }
+}

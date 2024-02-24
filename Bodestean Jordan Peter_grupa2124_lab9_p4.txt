@@ -1,0 +1,62 @@
+*/4.Creați o aplicație Java ce folosește accesul sincronizat la metode pentru excludere mutuală. Creați 3 fire de execuție
+ce apelează simultan metode de incrementare și decrementare a unei variabile dintr-o altă clasă. Verificați dacă
+rezultatele sunt cele așteptate. Eliminați blocurile sincronizate și re-evaluați rezultatele.*/
+
+
+
+package laborator;
+class Counter {
+    private int count = 0;
+     
+    Counter(int count){
+    	this.count=count;
+    }
+    
+    
+    public synchronized void increment() {
+        count++;
+    }
+    
+    public synchronized void decrement() {
+        count--;
+    }
+    
+    public int getCount() {
+        return count;
+    }
+}
+
+public class jordan {
+    public static void main(String[] args) {
+    	
+Counter counter = new Counter(9);
+        
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+        
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.decrement();
+            }
+        });
+        
+      
+        
+        t1.start();
+        t2.start();
+      
+    
+    try {
+        t1.join();
+        t2.join();
+      
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    
+    System.out.println("Final count: " + counter.getCount());
+}
+}

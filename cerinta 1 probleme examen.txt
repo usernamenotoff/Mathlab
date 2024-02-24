@@ -1,0 +1,201 @@
+1. Scrieti o aplicatie Java de tip Frame (AWT sau Swing) in care sa aveti 2
+componente de tip TextField, una pentru introducerea datelor unui student
+(nume, prenume si facultate) separate prin caracterul ‘*’, si cealalta pentru
+introducerea mediei. Mai adaugati in frame o componenta de tip TextArea, 2
+butoane “Copiaza” si “Salveaza”(initial background rosu) si o eticheta.
+La apasarea butonului “Copiaza” se efectueaza urmatoarele operatii: 1) informatiile
+din cele 2 campuri de editare vor fi scrise in componenta TextArea pe o singura linie,
+separate prin spatii, informatia de tip String cu majuscule (la urmatoarea apasare se
+trece la rand nou); 2) se verifica daca numele facultatii este “etti” si in caz afirmativ,
+butonul “Salveaza” se face verde.
+La apasarea butonului “Salveaza” se verifica daca are culoarea verde și in caz
+afirmativ se va salva in fisier numarul de studenti de la “etti” care au fost introdusi.
+In componenta de tip label se va afisa media cea mai mare introdusa. Introduceti
+validari pentru campurile de editare.
+
+
+
+
+
+package laborator;
+
+public class Student {
+	 String nume,prenume,facultate;
+	   int media;
+	   
+	   public Student(String n,String c,String r, int g) {
+	           nume=n;
+	           media=g;
+	           prenume=c;
+	           facultate=r;
+	   }
+	   
+	   public String getNume() {
+	           return nume;
+	   }
+	   public void setNume(String s) {
+	           nume=s;
+	   }
+	   public String getPrenume() {
+           return prenume;
+   }
+   public void setPrenume(String c) {
+           prenume=c;
+   }
+   public String getFacultate() {
+       return facultate;
+}
+public void setFacultate(String r) {
+       facultate=r;
+}
+	   public int getGrupa() {
+	           return media;
+	   }
+	   public void setGrupa(int g) {
+	           media=g;
+	   }
+	   
+	   public String toString() {
+	           return "Nume,prenume si facultatea: "+nume+prenume+facultate+" Media: "+media;
+	   }
+	}
+
+
+
+
+
+
+package laborator;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class Textfield extends JFrame {
+	JTextField tfN, tfG;
+	FileWriter fileWriter;
+	JTextArea ta;
+	JPanel p1, p2; 
+	   List<Student> lista;
+	   JButton bCopy, bSave;
+	   
+	   public Textfield(String titlu) {
+           super(titlu);
+           setSize(600, 600);
+           setLocation(100, 100);
+           setLayout(new FlowLayout());
+           init();
+   }
+	   public void init() {
+           lista=new ArrayList<Student>();
+           tfN=new JTextField(10);
+           tfG=new JTextField(10);
+           ta=new JTextArea(10, 10);
+           bCopy=new JButton("Copy");
+           bSave=new JButton("Save");
+           
+       ;
+               
+	   
+	   
+	   p1=new JPanel();
+	  
+       p1.setPreferredSize(new Dimension(300, 300));
+       p1.setBorder(BorderFactory.createEtchedBorder());
+      p1.add(new JLabel("Nume,Prenume si Facultatea:"));
+       p1.add(tfN);
+       p1.add(new JLabel("media:"));
+       p1.add(tfG);
+       p1.add(ta);
+       add(p1);
+       
+	   bCopy.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent ae) {
+                   ta.append(tfN.getText()+" "+tfG.getText()+"\n");
+                   Student s=new Student(tfN.getText(), getTitle(), getTitle(), Integer.parseInt(tfG.getText()));
+                   lista.add(s);}
+           });
+	
+	   bSave.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent ae) {
+		        String facultate = tfN.getText(); 
+		        String nume=tfN.getText();
+		        String prenume=tfN.getText();
+		        if (facultate.equalsIgnoreCase("etti")) { 
+		            bSave.setBackground(Color.GREEN);
+		            Student s = new Student(nume, prenume, facultate, Integer.parseInt(tfG.getText()));
+		            lista.add(s);
+		        }
+		        else bSave.setBackground(Color.RED);
+		    }
+		});
+	   
+	   p2=new JPanel();
+       p2.setPreferredSize(new Dimension(200, 100));
+       p2.setBorder(BorderFactory.createLineBorder(Color.RED));
+       p2.add(bCopy);
+       p2.add(bSave);
+       add(p2);
+       
+       bSave.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent ae) {
+    	        Color buttonColor = bSave.getBackground();
+    	        if (buttonColor == Color.GREEN) {
+    	            try {
+    	                fileWriter = new FileWriter("studenti_etti.txt");
+    	                PrintWriter printWriter = new PrintWriter(fileWriter);
+    	                int maxMedia = 0;
+    	                for (Student student : lista) {
+    	                    if (student.getFacultate().equalsIgnoreCase("etti")) {
+    	                        printWriter.println(student.toString());
+    	                        maxMedia = Math.max(maxMedia, student.getGrupa());
+    	                    }
+    	                }
+    	                printWriter.close();
+    	                fileWriter.close();
+    	                JLabel maxMediaLabel = new JLabel("Media cea mai mare: " + maxMedia);
+    	                p1.add(maxMediaLabel);
+    	                p1.revalidate();
+    	                p1.repaint();
+    	            } catch (IOException e) {
+    	                e.printStackTrace();
+    	            }
+    	        }
+    	    }
+    	});
+	   
+}
+	
+	   }
+
+
+
+
+
+package laborator;
+
+import laborator.Textfield;
+
+public class Examen {
+	public static void main(String args[]) {
+        Textfield f=new Textfield("Exemplu");
+        f.setVisible(true);
+}
+}
+

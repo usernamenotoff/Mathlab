@@ -1,0 +1,55 @@
+/*1.Folosind mecanismul preluării datelor de la tastatură cu un BufferedReader și InputStreamReader, preluați: un mesaj
+de tip String, ziua ca intreg, luna de tip String si anul ca un întreg. Procesul se va încheia în momentul trecerii la o nouă
+linie, când se va afișa fiecare câmp pe o linie separată. Afisati de asemenea toate campurile in ordinea in care au aparut.
+Recomandare: Folosiți clasa StreamTokenizer, atributele sval, nval respectiv constanta TT_EOL.
+Considerați și cazul în care nu cunoașteți natura câmpurilor introduse (numeric, cuvânt) folosind constantele
+TT_NUMBER, TT_WORD.
+ pentru aceasta cerinta?*/
+
+
+
+
+package laborator;
+
+
+
+import java .io.* ;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
+import java.io.ByteArrayInputStream;
+import java.util.Random;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+public class jordan{
+public static void main (String[] args)throws
+FileNotFoundException, IOException {
+
+	  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StreamTokenizer st = new StreamTokenizer(br);
+
+      System.out.println("Introduceti un mesaj:");
+      st.nextToken();
+      String mesaj = st.sval;
+      
+      System.out.println("Introduceti ziua:");
+      st.nextToken();
+      int ziua = (int) st.nval;
+      
+      System.out.println("Introduceti luna:");
+      st.nextToken();
+      String luna = st.sval;
+      
+      System.out.println("Introduceti anul:");
+      st.nextToken();
+      int an = (int) st.nval;
+
+      System.out.println(mesaj);
+      System.out.println(ziua);
+      System.out.println(luna);
+      System.out.println(an);
+  
+	}
+}

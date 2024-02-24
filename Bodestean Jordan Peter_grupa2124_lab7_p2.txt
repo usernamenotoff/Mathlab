@@ -1,0 +1,79 @@
+/* 1.Creați o clasă Calculator ce are implementate metode de adunare, scădere, înmulțire și împărțire
+//Metodele vor avea ca intrare tipuri de date generice și vor returna rezultatul conform acestor
+//date. De exemplu, suma a doi întregi va returna tot un întreg, pentru două numere de tip float 
+//se va returna tot un float. Aplicarea metodelor de adunare și scădere este permisă și pe 
+//variabile de tip String. 
+
+class Calculator<T> {
+	public void adunare(T var1, T var2) {
+		if ((var1 instanceof Integer) && (var2 instanceof Integer)) {
+			Integer x = ((Integer) var1).intValue() + ((Integer) var2).intValue();
+			System.out.println(var1 + " + " + var2 + " = " + x);
+		} else if ((var1 instanceof Double) && (var2 instanceof Double)) {
+			Double x = ((Double) var1).doubleValue() + ((Double) var2).doubleValue();
+			System.out.println(var1 + " + " + var2 + " = " + x);
+		} else if ((var1 instanceof String) && (var2 instanceof String)) {
+			String x = ((String) var1) + ((String) var2);
+			System.out.println(var1 + " + " + var2 + " = " + x);
+		}
+
+	}
+
+	public void scadere(T var1, T var2) {
+		if ((var1 instanceof Integer) && (var2 instanceof Integer)) {
+			Integer x = ((Integer) var1).intValue() - ((Integer) var2).intValue();
+			System.out.println(var1 + " - " + var2 + " = " + x);
+		} else if ((var1 instanceof Double) && (var2 instanceof Double)) {
+			Double x = ((Double) var1).doubleValue() - ((Double) var2).doubleValue();
+			System.out.println(var1 + " - " + var2 + " = " + x);
+		}
+	}
+
+	public void inmultire(T var1, T var2) {
+		if ((var1 instanceof Integer) && (var2 instanceof Integer)) {
+			Integer x = ((Integer) var1).intValue() * ((Integer) var2).intValue();
+			System.out.println(var1 + " * " + var2 + " = " + x);
+		} else if ((var1 instanceof Double) && (var2 instanceof Double)) {
+			Double x = ((Double) var1).doubleValue() * ((Double) var2).doubleValue();
+			System.out.println(var1 + " * " + var2 + " = " + x);
+		} else if ((var1 instanceof String) && (var2 instanceof String)) {
+			System.out.println("Operatie incorecta");
+		}
+
+	}
+	public void impartire(T var1, T var2) {
+		if ((var1 instanceof Integer) && (var2 instanceof Integer)) {
+			Integer x = ((Integer) var1).intValue() / ((Integer) var2).intValue();
+			System.out.println(var1 + " / " + var2 + " = " + x);
+		} else if ((var1 instanceof Double) && (var2 instanceof Double)) {
+			Double x = ((Double) var1).doubleValue() * ((Double) var2).doubleValue();
+			System.out.println(var1 + " / " + var2 + " = " + x);
+		} else if ((var1 instanceof String) && (var2 instanceof String)) {
+			System.out.println("Operatie incorecta");
+		}
+
+	}
+}
+
+public class P2Class {
+
+	public static void main(String[] args) {
+		Calculator<Integer> ob1 = new Calculator<Integer>();
+		ob1.adunare(4, 5);
+		ob1.scadere(4, 5);
+		ob1.inmultire(4,5);
+		ob1.impartire(40,5 );
+
+		Calculator<Double> ob2 = new Calculator<Double>();
+		ob2.adunare(4.2, 5.2);
+		ob2.scadere(4.2, 5.2);
+		ob2.inmultire(4.2,5.2);
+		ob2.impartire(4.2,5.2);
+
+		Calculator<String> ob3=new Calculator<String>();
+		ob3.adunare("ana","maria");
+		ob3.inmultire("ana", "maria");
+		ob3.impartire("ana", "maria");
+		
+	}
+}

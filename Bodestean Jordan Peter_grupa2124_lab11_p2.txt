@@ -1,0 +1,82 @@
+/*2. Implementați o aplicație Java care folosește GridBagLayout pentru aranjarea în pagină a componentelor unei aplicații
+de calcul (TextField pt. intrare/ieșire, butoane pentru numere, operații matematice, ștergerea ecranului, etc.).
+*/
+
+
+package laborator;
+import java.awt.Button;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+public class Gridlayout  {
+	private static JTextField textField;
+public static void main(String[] args) {
+	
+	JFrame frame=new JFrame("GridBaglayout");
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	JPanel p=new JPanel(new GridBagLayout());
+	GridBagConstraints gbc = new GridBagConstraints();
+	 textField = new JTextField();
+	 gbc.gridx = 0;
+     gbc.gridy = 0;
+     gbc.gridwidth = 5;
+     gbc.fill = GridBagConstraints.HORIZONTAL;
+     p.add(textField, gbc);
+     
+     gbc.gridwidth = 1;
+     gbc.gridy = 1;
+
+     for (int i = 0; i <= 9; i++) {
+         JButton button = new JButton(String.valueOf(i));
+         gbc.gridx = i % 4;
+         p.add(button, gbc);
+         button.addActionListener(new ButtonClickListener(String.valueOf(i)));
+     }
+
+     gbc.gridx = 4;
+     gbc.gridy = 1;
+     String[] operations = {"+", "-", "*", "/"};
+     for (int i = 0; i < operations.length; i++) {
+         JButton button = new JButton(operations[i]);
+         p.add(button, gbc);
+         button.addActionListener(new ButtonClickListener(operations[i]));
+         gbc.gridy++;
+     }
+     frame.add(p);
+     frame.pack();
+     frame.setVisible(true);
+}
+    
+    static class ButtonClickListener implements ActionListener {
+        private String buttonText;
+
+        public ButtonClickListener(String buttonText) {
+            this.buttonText = buttonText;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            textField.setText(textField.getText() + buttonText);
+    
+        }
+    }
+}
+

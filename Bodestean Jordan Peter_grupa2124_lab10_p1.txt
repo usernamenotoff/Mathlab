@@ -1,0 +1,53 @@
+/*1. Scrieți o aplicație de tip Frame în care afișați într-un Panel numele vostru și grupa din care faceți parte. Textul va fi de
+culoare albastră și centrat atât pe orizontală, cât și pe verticală, ținând cont de dimensiunea panelului.*/
+
+
+
+
+
+
+
+
+
+
+package laborator;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+public class MenuExample {
+	MenuExample()  
+    {  
+    JFrame f= new JFrame("Panel Example");    
+    JPanel panel=new JPanel();  
+    panel.setBounds(60,100,200,200);    
+    JLabel j1=new JLabel("Grupa 2124:");     
+    j1.setBounds(60,100,80,30);
+   j1.setForeground(Color.BLUE);
+   j1.setHorizontalAlignment(SwingConstants.CENTER);
+   j1.setVerticalAlignment(SwingConstants.CENTER);
+
+    JLabel j2=new JLabel("Nume:Bodestean Jordan-Peter");   
+    j2.setBounds(100,100,80,30);    
+    j2.setForeground(Color.BLUE);
+    j2.setHorizontalAlignment(SwingConstants.CENTER);
+    j2.setVerticalAlignment(SwingConstants.CENTER);
+
+    panel.add(j1); panel.add(j2);  
+    f.add(panel);  
+            f.setSize(400,400);    
+            f.setLayout(null);    
+            f.setVisible(true);
+            f.setLocationRelativeTo(null);  
+ }  
+    public static void main(String args[])  
+    {  
+    new MenuExample();  
+    }  
+} 
+
